@@ -3,12 +3,12 @@ import carpLogo from "./assets/logo-carp-flat-colored.png";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Title } from "./App";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 console.log(navigator.userAgent);
 
 function App() {
-  const { accessCode } = useParams();
+  // const { accessCode } = useParams();
 
   const openApp = () => {
     const isAndroid = /Android/i.test(navigator.userAgent);
@@ -19,18 +19,13 @@ function App() {
         "https://play.google.com/store/apps/details?id=dk.cachet.carp_study_app"
       );
 
-      const intentUrl = `intent://${
-        accessCode ?? ""
-      }#Intent;scheme=carp-studies;package=dk.cachet.carp_study_app;S.browser_fallback_url=${fallbackUrl};end`;
+      const intentUrl = `intent:///#Intent;scheme=carp-studies;package=dk.cachet.carp_study_app;S.browser_fallback_url=${fallbackUrl};end`;
 
-      globalThis.open(intentUrl);
+      globalThis.open(intentUrl, "_blank");
     } else if (isiOS) {
-      setTimeout(() => {
-        globalThis.open(
-          "https://apps.apple.com/us/app/carp-studies/id1569798025",
-          "_blank"
-        );
-      }, 2000);
+      globalThis.open(
+        "https://apps.apple.com/us/app/carp-studies/id1569798025"
+      );
     } else {
       alert("You are not using an Android or iOS device.");
     }
