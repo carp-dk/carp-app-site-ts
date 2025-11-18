@@ -20,12 +20,11 @@ function App() {
       );
 
       const intentUrl = `intent://${
-        accessCode ?? "/"
+        accessCode ?? ""
       }#Intent;scheme=carp-studies;package=dk.cachet.carp_study_app;S.browser_fallback_url=${fallbackUrl};end`;
 
       globalThis.open(intentUrl);
     } else if (isiOS) {
-      globalThis.open(`carp-studies://${accessCode ?? ""}`);
       setTimeout(() => {
         globalThis.open(
           "https://apps.apple.com/us/app/carp-studies/id1569798025",
