@@ -21,3 +21,13 @@ jobs:
       run: |
         docker build -t registry.carp.dk/carp/carp-app-site:latest .
         docker push registry.carp.dk/carp/carp-app-site:latest
+    
+    - name: Deploy to server
+      run: |
+        curl --location --request PUT 'https://dev.carp.dk/portainer/api/stacks/${{ vars.STACK_ID }}/git/redeploy?endpointId=${{ vars.ENDPOINT_ID }}' \
+        --header 'Content-Type: text/plain' \
+        --header 'X-API-KEY: ${{ secrets.PORTAINER_API_KEY }}' \
+        --data '{
+            "pullImage": true,
+            "prune": true
+        }'
