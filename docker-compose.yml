@@ -1,0 +1,7 @@
+version: '1.0'
+
+services:
+  app-site:
+    image: registry.carp.dk/carp/carp-app-site
+    ports:
+      - 3001:3001
