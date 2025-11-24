@@ -22,12 +22,11 @@ jobs:
         docker build -t registry.carp.dk/carp/carp-app-site:latest .
         docker push registry.carp.dk/carp/carp-app-site:latest
     
-    - name: Deploy to server
-      run: |
-        curl --location --request PUT 'https://dev.carp.dk/portainer/api/stacks/${{ vars.STACK_ID }}/git/redeploy?endpointId=${{ vars.ENDPOINT_ID }}' \
-        --header 'Content-Type: text/plain' \
-        --header 'X-API-KEY: ${{ secrets.PORTAINER_API_KEY }}' \
-        --data '{
-            "pullImage": true,
-            "prune": true
-        }'
+    - name: Redeploy stack
+      uses:  manicmade/portainer-git-stack-redeploy-action@v1.5.3
+      with:
+        portainerUrl: 'https://dev.carp.dk/portainer'
+        accessToken: '${{ secrets.PORTAINER_API_KEY }}'
+        stackName: 'app-site-stack'
+        branch: 'refs/heads/main'
+        
