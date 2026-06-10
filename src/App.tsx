@@ -14,9 +14,16 @@ function App() {
     const isAndroid = /Android/i.test(navigator.userAgent);
     const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+    const authLink = globalThis.location.href;
+
     if (isAndroid) {
+      // Encode once for the referrer value...
+      const referrerValue = encodeURIComponent(authLink);
+
+      // ...then build the full Play Store fallback URL and encode it again,
+      // because it lives inside the intent string's browser_fallback_url.
       const fallbackUrl = encodeURIComponent(
-        "https://play.google.com/store/apps/details?id=dk.cachet.carp_study_app"
+        `https://play.google.com/store/apps/details?id=dk.cachet.carp_study_app&referrer=${referrerValue}`,
       );
 
       const intentUrl = `intent:///#Intent;scheme=carp-studies;package=dk.cachet.carp_study_app;S.browser_fallback_url=${fallbackUrl};end`;
@@ -24,7 +31,7 @@ function App() {
       globalThis.open(intentUrl, "_blank");
     } else if (isiOS) {
       globalThis.open(
-        "https://apps.apple.com/us/app/carp-studies/id1569798025"
+        "https://apps.apple.com/us/app/carp-studies/id1569798025",
       );
     } else {
       alert("You are not using an Android or iOS device.");
