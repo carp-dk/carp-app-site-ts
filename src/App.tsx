@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import carpLogo from "./assets/logo-carp-flat-colored.png";
+import { appForHost } from "./apps";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Title } from "./App";
@@ -9,6 +9,7 @@ console.log(navigator.userAgent);
 
 function App() {
   // const { accessCode } = useParams();
+  const app = appForHost(globalThis.location.host);
 
   const openApp = () => {
     const isAndroid = /Android/i.test(navigator.userAgent);
@@ -17,22 +18,9 @@ function App() {
     const authLink = globalThis.location.href;
 
     if (isAndroid) {
-      // Encode once for the referrer value...
-      const referrerValue = encodeURIComponent(authLink);
-
-      // ...then build the full Play Store fallback URL and encode it again,
-      // because it lives inside the intent string's browser_fallback_url.
-      const fallbackUrl = encodeURIComponent(
-        `https://play.google.com/store/apps/details?id=dk.cachet.carp_study_app&referrer=${referrerValue}`,
-      );
-
-      const intentUrl = `intent:///#Intent;scheme=carp-studies;package=dk.cachet.carp_study_app;S.browser_fallback_url=${fallbackUrl};end`;
-
-      globalThis.open(intentUrl, "_blank");
+      globalThis.open(app.androidIntent(authLink), "_blank");
     } else if (isiOS) {
-      globalThis.open(
-        "https://apps.apple.com/us/app/carp-studies/id1569798025",
-      );
+      globalThis.open(app.appStoreUrl);
     } else {
       alert("You are not using an Android or iOS device.");
     }
@@ -47,16 +35,16 @@ function App() {
       bgcolor="background.default"
     >
       <a href="https://carp.dk" target="_blank">
-        <img src={carpLogo} className="logo" alt="CARP logo" height={"50vh"} />
+        <img src={app.logo} className="logo" alt={app.logoAlt} height={"50vh"} />
       </a>
       <Title variant="h1" textAlign={"center"}>
         Welcome to CARP
       </Title>
       <Typography variant="h3" textAlign={"center"}>
-        Click the button below to open or download the CARP Studies App
+        Click the button below to open or download the {app.name}
       </Typography>
       <Button onClick={openApp} variant="contained" size="large">
-        CARP Studies App
+        {app.name}
       </Button>
       {/* <Paper
         sx={{
