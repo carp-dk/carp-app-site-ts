@@ -8,8 +8,17 @@ export type AppConfig = {
   logoAlt: string;
   /** Android intent URL that opens the app, falling back to the Play Store. */
   androidIntent: (link: string) => string;
-  appStoreUrl: string;
+  /** Default App Clip link that hands [link] to the App Clip. */
+  appClipUrl: (link: string) => string;
 };
+
+/**
+ * Apple's default App Clip link for [bundleId], carrying [link] in a `link`
+ * parameter. AppClipUI unwraps it, so the full app gets the page URL just as
+ * from the Smart App Banner, which a page cannot raise itself.
+ */
+const appClipUrl = (bundleId: string, link: string) =>
+  `https://appclip.apple.com/id?p=${bundleId}&link=${encodeURIComponent(link)}`;
 
 /** Play Store listing that hands [link] to the app as its install referrer. */
 const playStoreUrl = (packageName: string, link: string) =>
@@ -27,7 +36,7 @@ const carpStudies: AppConfig = {
     );
     return `intent:///#Intent;scheme=carp-studies;package=dk.cachet.carp_study_app;S.browser_fallback_url=${fallbackUrl};end`;
   },
-  appStoreUrl: "https://apps.apple.com/us/app/carp-studies/id1569798025",
+  appClipUrl: (link) => appClipUrl("com.cachet.carpstudyapp.appclip", link),
 };
 
 const mcat: AppConfig = {
@@ -43,7 +52,7 @@ const mcat: AppConfig = {
     const fallbackUrl = encodeURIComponent(playStoreUrl("dk.carp.mcat", link));
     return `intent://${url.host}${url.pathname}${url.search}#Intent;scheme=https;package=dk.carp.mcat;S.browser_fallback_url=${fallbackUrl};end`;
   },
-  appStoreUrl: "https://apps.apple.com/app/id6773671479",
+  appClipUrl: (link) => appClipUrl("dk.carp.mcat.appclip", link),
 };
 
 /** mcat.app.<server> serves mCAT; every other host the CARP Studies App. */

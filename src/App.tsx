@@ -20,7 +20,7 @@ function App() {
     if (isAndroid) {
       globalThis.open(app.androidIntent(authLink), "_blank");
     } else if (isiOS) {
-      globalThis.open(app.appStoreUrl);
+      globalThis.open(app.appClipUrl(authLink));
     } else {
       alert("You are not using an Android or iOS device.");
     }
