@@ -10,10 +10,10 @@
     <script>
       document.write(
         location.host.startsWith("mcat.app.")
-          ? '<meta name="apple-itunes-app" content="app-id=6773671479, app-clip-bundle-id=dk.carp.mcat.appclip, app-argument=' + location.href.replace(/"/g, "%22") + '" />'
+          ? '<meta name="apple-itunes-app" content="app-id=6773671479, app-clip-bundle-id=dk.carp.mcat.appclip, app-clip-display=card, app-argument=' + location.href.replace(/"/g, "%22") + '" />'
           : location.host.startsWith("neuropathy.app.")
-          ? '<meta name="apple-itunes-app" content="app-id=6758608991, app-clip-bundle-id=dk.carp.neuropathy-tracker.appclip, app-argument=' + location.href.replace(/"/g, "%22") + '" />'
-          : '<meta name="apple-itunes-app" content="app-id=1569798025, app-clip-bundle-id=com.cachet.carpstudyapp.appclip, app-argument=https://study.app.test.carp.dk" />'
+          ? '<meta name="apple-itunes-app" content="app-id=6758608991, app-clip-bundle-id=dk.carp.neuropathy-tracker.appclip, app-clip-display=card, app-argument=' + location.href.replace(/"/g, "%22") + '" />'
+          : '<meta name="apple-itunes-app" content="app-id=1569798025, app-clip-bundle-id=com.cachet.carpstudyapp.appclip, app-clip-display=card, app-argument=https://study.app.test.carp.dk" />'
       );
     </script>
     <title>Welcome to CARP</title>
