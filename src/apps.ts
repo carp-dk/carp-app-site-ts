@@ -1,5 +1,6 @@
 import carpLogo from "./assets/logo-carp-flat-colored.png";
 import mcatLogo from "./assets/logo-mcat.png";
+import neuropathyLogo from "./assets/logo-neuropathy.svg";
 
 /** The app a link host belongs to, and how to open or install it. */
 export type AppConfig = {
@@ -55,6 +56,28 @@ const mcat: AppConfig = {
   appClipUrl: (link) => appClipUrl("dk.carp.mcat.appclip", link),
 };
 
-/** mcat.app.<server> serves mCAT; every other host the CARP Studies App. */
-export const appForHost = (host: string): AppConfig =>
-  host.startsWith("mcat.app.") ? mcat : carpStudies;
+const neuropathy: AppConfig = {
+  name: "Neuropathy Tracker",
+  logo: neuropathyLogo,
+  logoAlt: "Neuropathy Tracker logo",
+  androidIntent: (link) => {
+    // Opened like mCAT: the link addressed to the app over https, with the
+    // Play Store and install referrer as the fallback.
+    const url = new URL(link);
+    const fallbackUrl = encodeURIComponent(
+      playStoreUrl("dk.carp.neuropathy_tracker", link),
+    );
+    return `intent://${url.host}${url.pathname}${url.search}#Intent;scheme=https;package=dk.carp.neuropathy_tracker;S.browser_fallback_url=${fallbackUrl};end`;
+  },
+  appClipUrl: (link) => appClipUrl("dk.carp.neuropathy-tracker.appclip", link),
+};
+
+/**
+ * mcat.app.<server> serves mCAT, neuropathy.app.<server> the Neuropathy
+ * Tracker; every other host the CARP Studies App.
+ */
+export const appForHost = (host: string): AppConfig => {
+  if (host.startsWith("mcat.app.")) return mcat;
+  if (host.startsWith("neuropathy.app.")) return neuropathy;
+  return carpStudies;
+};
