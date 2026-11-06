@@ -1,8 +1,9 @@
 import { Stack } from "@mui/system";
-import { appForHost } from "./apps";
+import { appForHost, mcat } from "./apps";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Title } from "./App";
+import { McatWelcome } from "./McatWelcome";
 // import { useParams } from "react-router-dom";
 
 console.log(navigator.userAgent);
@@ -25,6 +26,8 @@ function App() {
       alert("You are not using an Android or iOS device.");
     }
   };
+
+  if (app === mcat) return <McatWelcome onOpenApp={openApp} />;
 
   return (
     <Stack

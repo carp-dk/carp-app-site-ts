@@ -40,7 +40,7 @@ const carpStudies: AppConfig = {
   appClipUrl: (link) => appClipUrl("com.cachet.carpstudyapp.appclip", link),
 };
 
-const mcat: AppConfig = {
+export const mcat: AppConfig = {
   name: "mCAT app",
   logo: mcatLogo,
   logoAlt: "mCAT logo",
