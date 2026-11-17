@@ -33,13 +33,13 @@ export function McatWelcome({ onOpenApp }: { onOpenApp: () => void }) {
   return (
     <Box
       sx={{
-        minHeight: "100dvh",
+        height: "100dvh",
         bgcolor: "#F2F2F7",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         px: 3,
-        pt: 10,
+        pt: "min(80px, 8dvh)",
         pb: 2,
         fontFamily: "'Open Sans', sans-serif",
         textAlign: "center",
@@ -49,7 +49,7 @@ export function McatWelcome({ onOpenApp }: { onOpenApp: () => void }) {
         component="img"
         src={hero}
         alt=""
-        sx={{ width: "100%", maxWidth: 382, aspectRatio: "1" }}
+        sx={{ width: "100%", maxWidth: 382, aspectRatio: "1", minHeight: 0, flexShrink: 1, objectFit: "contain" }}
       />
       <Typography
         component="h1"
@@ -63,7 +63,7 @@ export function McatWelcome({ onOpenApp }: { onOpenApp: () => void }) {
         {text.body}
       </Typography>
       <Typography
-        sx={{ mt: "auto", pt: 5, maxWidth: 342, font: "inherit", fontWeight: 400, fontSize: 14, color: "#444" }}
+        sx={{ mt: "auto", pt: 3, maxWidth: 342, font: "inherit", fontWeight: 400, fontSize: 14, color: "#444" }}
       >
         {text.footnote}
       </Typography>
